@@ -1,7 +1,9 @@
 const express = require("express");
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 const app = express();
 require("dotenv").config();
+const authRoutes = require("./routes/auth");
+const cors = require("cors");
 
 const PORT = 5000;
 
@@ -11,8 +13,14 @@ mongoose
   .then(() => console.log("DBと接続中"))
   .catch((err) => console.log(err));
 
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
 app.use(express.json());
 // app.use("/api/todos", todosRoute);
+app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello express");
