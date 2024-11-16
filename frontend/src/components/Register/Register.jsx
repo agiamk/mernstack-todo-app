@@ -16,6 +16,7 @@ const Register = () => {
         password,
       });
       console.log(res);
+      localStorage.setItem("token", res.data.token);
       setError("");
     } catch (err) {
       console.log(err);

@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const app = express();
 require("dotenv").config();
 const authRoutes = require("./routes/auth");
+const secureRoutes = require("./routes/secure");
 const cors = require("cors");
 
 const PORT = 5000;
@@ -19,8 +20,10 @@ app.use(
   })
 );
 app.use(express.json());
+
 // app.use("/api/todos", todosRoute);
 app.use("/api/auth", authRoutes);
+app.use("/api/secure", secureRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello express");
