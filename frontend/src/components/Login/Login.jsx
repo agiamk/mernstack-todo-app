@@ -1,20 +1,25 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Login.css";
 
-const Login = () => {
+const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const res = await axios.post("http://localhost:5000/api/auth/login", {
         email,
         password,
       });
       console.log(res);
-      localStorage.setItem("token", res.data.token);
+      navigate("/");
     } catch (err) {
       console.log(err);
       setError("ログインに失敗しました");
@@ -35,10 +40,10 @@ const Login = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button type="submit">作成</button>
+      <button type="submit">ログイン</button>
       {error && <p>{error}</p>}
     </form>
   );
 };
 
-export default Login;
+export default Register;
