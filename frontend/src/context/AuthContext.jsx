@@ -17,10 +17,10 @@ export const AuthContext = createContext(initialState);
 //childrenに型定義が必要になるエラーを無効化
 // eslint-disable-next-line react/prop-types
 export const AuthContextProvider = ({ children }) => {
-  const [state, dispach] = useReducer(AuthReducer, initialState);
+  const [state, dispatch] = useReducer(AuthReducer, initialState);
 
   return (
-    <AuthContext.Provider value={{ state, dispach }}>
+    <AuthContext.Provider value={{ state, dispatch }}>
       {children}
     </AuthContext.Provider>
   );
