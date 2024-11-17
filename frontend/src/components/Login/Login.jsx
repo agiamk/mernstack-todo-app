@@ -1,48 +1,47 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import "./Login.css";
+import { getAccount } from "../../utils/getAccount";
+import { AuthContext } from "../../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-
-  const navigate = useNavigate();
+  const { state, dispatch } = useContext(AuthContext);
+  const [error, setError] = useState(state.error);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", {
+    getAccount(
+      {
         email,
         password,
-      });
-      console.log(res);
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-      setError("ログインに失敗しました");
-    }
+      },
+      dispatch
+    );
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        placeholder="メールアドレスを入力してください。"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="パスワードを入力してください。"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit">ログイン</button>
-      {error && <p>{error}</p>}
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          placeholder="メールアドレスを入力してください。"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="パスワードを入力してください。"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit">ログイン</button>
+        {error && <p>{error}</p>}
+      </form>
+      <Link to="/register">新規登録</Link>
+    </>
   );
 };
 

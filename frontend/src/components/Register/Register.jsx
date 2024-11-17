@@ -1,30 +1,39 @@
 import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { getAccount } from "../../utils/getAccount";
+import { AuthContext } from "../../context/AuthContext";
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("res");
+  const passwordConfirmation = useRef(null);
   const [error, setError] = useState("");
+  const { dispatch } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const res = await axios.post("http://localhost:5000/api/auth/register", {
-        username,
-        email,
-        password,
-      });
-      console.log(res);
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-      setError("新規登録に失敗しました");
+    //パスワードと確認用パスワードがあっているか確認
+    if (password === passwordConfirmation.current.value) {
+      try {
+        const res = await axios.post("/api/auth/register", {
+          username,
+          email,
+          password,
+        });
+
+        getAccount(res.data, dispatch);
+        navigate("/todo");
+      } catch (err) {
+        console.log(err);
+        setError("新規登録に失敗しました");
+      }
+    } else {
+      passwordConfirmation.current.setCustomValidity("パスワードが違います。");
     }
   };
 
@@ -51,11 +60,11 @@ const Register = () => {
       <input
         type="password"
         placeholder="確認用パスワードを入力してください"
-        value={passwordConfirmation}
-        onChange={(e) => setPasswordConfirmation(e.target.value)}
+        ref={passwordConfirmation}
       />
       <button type="submit">登録</button>
       {error && <p>{error}</p>}
+      <Link to="/login">ログイン</Link>
     </form>
   );
 };
