@@ -1,5 +1,5 @@
 import "./App.css";
-import Login from "./components/Login";
+import Login from "./components/Login/Login";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Register from "./components/Register/Register";
 import Form from "./components/Form/Form";
