@@ -2,11 +2,14 @@ const { Schema, default: mongoose } = require("mongoose");
 
 const TodoSchema = new Schema(
   {
+    userId: {
+      type: String,
+      required: true,
+    },
     title: { type: String, required: true },
     content: { type: String, required: true },
-    deadline: { type: String, required: true },
     priority: { type: String },
-    idDone: { type: Boolean },
+    isDone: { type: Boolean },
   },
   { timestamps: true }
 );

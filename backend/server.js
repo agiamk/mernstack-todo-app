@@ -1,10 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-require("dotenv").config();
 const authRoutes = require("./routes/auth");
-const secureRoutes = require("./routes/secure");
+const todoRoutes = require("./routes/todo");
 const cors = require("cors");
+require("dotenv").config();
 
 const PORT = 5000;
 
@@ -19,11 +19,10 @@ app.use(
     origin: "http://localhost:5173",
   })
 );
-app.use(express.json());
 
-// app.use("/api/todos", todosRoute);
+app.use(express.json());
+app.use("/api/todo", todoRoutes);
 app.use("/api/auth", authRoutes);
-app.use("/api/secure", secureRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello express");
