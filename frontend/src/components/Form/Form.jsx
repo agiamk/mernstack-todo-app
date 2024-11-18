@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import axios from "axios";
+import { apiClinet } from "../../utils/apiClient";
 import "./Form.css";
 
 const Form = () => {
@@ -17,7 +17,7 @@ const Form = () => {
     }
 
     try {
-      const res = await axios.get("http://localhost:5000/api/todo/", {});
+      const res = await apiClinet.get("http://localhost:5000/api/todo/", {});
       console.log(res.data);
     } catch (err) {
       setError(err.response);
