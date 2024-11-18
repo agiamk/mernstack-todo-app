@@ -21,7 +21,7 @@ router.post("/register", async (req, res) => {
 //ユーザーログイン
 router.post("/login", async (req, res) => {
   try {
-    const user = User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email });
     if (!user) return res.status(404).json("ユーザーが見つかりません");
 
     const validatedPassword = user.password === req.body.password;

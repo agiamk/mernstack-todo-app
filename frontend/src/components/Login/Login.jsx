@@ -11,9 +11,10 @@ const Register = () => {
   const [error, setError] = useState(state.error);
 
   const handleSubmit = async (e) => {
+    console.log(state.user);
     e.preventDefault();
 
-    getAccount(
+    await getAccount(
       {
         email,
         password,
