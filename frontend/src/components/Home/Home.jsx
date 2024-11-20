@@ -2,7 +2,7 @@ import { useContext } from "react";
 import styles from "./Home.module.css";
 import { AuthContext } from "../../context/AuthContext";
 import TodoList from "../TodoList/TodoList";
-import AddTodoForm from "../AddTodoForm/AddTodoForm";
+import TodoForm from "../TodoForm/TodoForm";
 import Sheet from "../Sheet/Sheet";
 import CompletedTodo from "../CompletedTodo/CompletedTodo";
 
@@ -18,7 +18,7 @@ const Home = () => {
           <br />
           あなたのタスクを登録しましょう！
         </p>
-        <AddTodoForm />
+        <TodoForm add />
         <div className={styles.main}>
           <TodoList />
           <CompletedTodo />

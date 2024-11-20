@@ -1,11 +1,16 @@
-import { apiClinet } from "../../utils/apiClient";
+import styles from "./DeleteButton.module.css";
+import { apiClient } from "../../utils/apiClient";
 
 const DeleteButton = ({ id }) => {
   const handleDelete = async () => {
-    await apiClinet.delete(`/todo/${id}`);
+    await apiClient.delete(`/todo/${id}`);
   };
 
-  return <button onClick={handleDelete}>削除</button>;
+  return (
+    <button className={styles.button} onClick={handleDelete}>
+      削除
+    </button>
+  );
 };
 
 export default DeleteButton;

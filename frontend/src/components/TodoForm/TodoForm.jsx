@@ -1,15 +1,16 @@
-import { useContext, useRef, useState } from "react";
-import { apiClinet } from "../../utils/apiClient";
-import styles from "./AddTodoForm.module.css";
+/* eslint-disable react/prop-types */
+import { useContext, useState } from "react";
+import { apiClient } from "../../utils/apiClient";
+import styles from "./TodoForm.module.css";
 import { AuthContext } from "../../context/AuthContext";
-import SubmitButton from "../SubmitButton/SubmitButton";
+import SubmitButton from "../SubmitButton/Button";
 
-const AddTodoForm = () => {
+const TodoForm = ({ add, update, todo, setEdit }) => {
   const { state } = useContext(AuthContext);
   const [error, setError] = useState(state.error);
-  const [priority, setPriority] = useState();
-  const title = useRef();
-  const content = useRef();
+  const [priority, setPriority] = useState(todo?.riority);
+  const [title, setTitle] = useState(todo?.title);
+  const [content, setContent] = useState(todo?.content);
 
   const user = state.user;
 
@@ -17,18 +18,32 @@ const AddTodoForm = () => {
     e.preventDefault();
 
     try {
-      const res = await apiClinet.post("/todo", {
-        userId: user._id,
-        title: title.current.value,
-        content: content.current.value,
-        priority: priority,
-        isDone: false,
-      });
+      if (add) {
+        await apiClient.post("/todo", {
+          userId: user._id,
+          title: title,
+          content: content,
+          priority: priority,
+          isDone: false,
+        });
+        setTitle("");
+        setContent("");
+        setPriority("");
+      }
 
-      title.current.value = "";
-      content.current.value = "";
-      setPriority("");
-      console.log(res.data);
+      if (update) {
+        await apiClient.put(`/todo/${todo._id}`, {
+          userId: user._id,
+          title: title,
+          content: content,
+          priority: priority,
+        });
+        setTitle("");
+        setContent("");
+        setPriority("");
+        setEdit((prev) => !prev);
+      }
+      // window.location.reload();
     } catch (err) {
       setError(err.response);
       console.log(err);
@@ -45,7 +60,8 @@ const AddTodoForm = () => {
           <input
             type="text"
             id="title"
-            ref={title}
+            value={title}
+            onInput={(e) => setTitle(e.target.value)}
             required
             className={styles.form__inputText}
           />
@@ -57,7 +73,8 @@ const AddTodoForm = () => {
           <textarea
             type="text"
             id="content"
-            ref={content}
+            value={content}
+            onInput={(e) => setContent(e.target.value)}
             required
             className={styles.form__textArea}
           />
@@ -117,7 +134,8 @@ const AddTodoForm = () => {
           </div>
         </div>
         <div className={styles.buttonWrapper}>
-          <SubmitButton>追加</SubmitButton>
+          {add && <SubmitButton>追加</SubmitButton>}
+          {update && <SubmitButton>更新</SubmitButton>}
         </div>
       </form>
       <div>{error && error}</div>
@@ -125,4 +143,4 @@ const AddTodoForm = () => {
   );
 };
 
-export default AddTodoForm;
+export default TodoForm;
