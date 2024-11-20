@@ -2,7 +2,7 @@ import { useContext, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAccount } from "../../utils/getAccount";
 import { AuthContext } from "../../context/AuthContext";
-import { apiClinet } from "../../utils/apiClient";
+import { apiClient } from "../../utils/apiClient";
 import styles from "./Register.module.css";
 import Sheet from "../Sheet/Sheet";
 
@@ -22,7 +22,7 @@ const Register = () => {
     //パスワードと確認用パスワードがあっているか確認
     if (password === passwordConfirmation.current.value) {
       try {
-        const res = await apiClinet.post("/auth/register", {
+        const res = await apiClient.post("/auth/register", {
           username,
           email,
           password,

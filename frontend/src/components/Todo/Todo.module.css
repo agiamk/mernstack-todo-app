@@ -1,0 +1,29 @@
+.card {
+  border: 1px solid black;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.card__title {
+  font-style: normal;
+  color: #342626;
+  font-weight: bold;
+}
+
+.card__buttonList {
+  display: flex;
+  gap: 8px;
+}
+
+.card__editButton {
+  display: inline-block;
+  padding: 8px 16px;
+  outline: none;
+  background: none;
+}
+
+.card__editButton:focus,
+.card__editButton:hover {
+  background-color: black;
+  color: white;
+}
