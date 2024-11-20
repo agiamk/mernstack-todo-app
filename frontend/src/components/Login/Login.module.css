@@ -1,0 +1,17 @@
+.form {
+  padding-top: 16px;
+  padding-bottom: 24px;
+}
+
+.form__item {
+  display: flex;
+  padding-bottom: 16px;
+  justify-content: center;
+}
+
+.form__label {
+  padding-right: 8px;
+}
+
+.styles.form__label--radio {
+}
