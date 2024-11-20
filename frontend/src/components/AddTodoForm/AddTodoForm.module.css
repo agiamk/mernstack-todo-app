@@ -1,3 +1,7 @@
+.container {
+  width: 400px;
+}
+
 .form {
   padding-top: 16px;
   padding-bottom: 24px;
@@ -6,12 +10,25 @@
 .form__item {
   display: flex;
   padding-bottom: 16px;
-  justify-content: center;
+}
+
+.form__item--radio {
+  gap: 8px;
 }
 
 .form__label {
   padding-right: 8px;
 }
 
-.styles.form__label--radio {
+.form__label--radio {
+  padding-right: 4px;
+}
+
+.form__textArea {
+  min-width: 300px;
+  resize: none;
+}
+
+.buttonWrapper {
+  text-align: center;
 }
