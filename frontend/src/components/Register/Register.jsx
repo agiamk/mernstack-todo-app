@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getAccount } from "../../utils/getAccount";
 import { AuthContext } from "../../context/AuthContext";
 import { apiClinet } from "../../utils/apiClient";
+import styles from "./Register.module.css";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -38,34 +39,57 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="名前を入力してください"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="email"
-        placeholder="メールアドレスを入力してください。"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="パスワードを入力してください。"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="確認用パスワードを入力してください"
-        ref={passwordConfirmation}
-      />
-      <button type="submit">登録</button>
-      {error && <p>{error}</p>}
-      <Link to="/login">ログイン</Link>
-    </form>
+    <>
+      <h1>MERNStack TodoApp</h1>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.form__item}>
+          <label htmlFor="username" className={styles.form__label}>
+            ユーザーネーム
+          </label>
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+        <div className={styles.form__item}>
+          <label htmlFor="email" className={styles.form__label}>
+            メールアドレス
+          </label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className={styles.form__item}>
+          <label htmlFor="password" className={styles.form__label}>
+            パスワード
+          </label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className={styles.form__item}>
+          <label htmlFor="passwordConfirmation" className={styles.form__label}>
+            確認用パスワード
+          </label>
+          <input
+            type="password"
+            id="passwordConfirmation"
+            ref={passwordConfirmation}
+          />
+        </div>
+        <button type="submit">新規登録</button>
+        {error && <p>{error}</p>}
+      </form>
+      <Link to="/login">ログインはこちら</Link>
+    </>
   );
 };
 
