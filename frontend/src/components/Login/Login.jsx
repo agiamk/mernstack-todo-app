@@ -3,6 +3,7 @@ import styles from "./Login.module.css";
 import { getAccount } from "../../utils/getAccount";
 import { AuthContext } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import Sheet from "../Sheet/Sheet";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -29,7 +30,8 @@ const Register = () => {
   };
 
   return (
-    <>
+    <Sheet>
+      <h1>MERNStack TodoApp</h1>
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.form__item}>
           <label htmlFor="email" className={styles.form__label}>
@@ -40,6 +42,7 @@ const Register = () => {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </div>
         <div className={styles.form__item}>
@@ -51,13 +54,14 @@ const Register = () => {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </div>
         <button type="submit">ログイン</button>
         {error && <p>{error}</p>}
       </form>
       <Link to="/register">新規登録はこちら</Link>
-    </>
+    </Sheet>
   );
 };
 

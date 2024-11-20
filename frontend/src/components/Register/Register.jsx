@@ -4,6 +4,7 @@ import { getAccount } from "../../utils/getAccount";
 import { AuthContext } from "../../context/AuthContext";
 import { apiClinet } from "../../utils/apiClient";
 import styles from "./Register.module.css";
+import Sheet from "../Sheet/Sheet";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -39,7 +40,7 @@ const Register = () => {
   };
 
   return (
-    <>
+    <Sheet>
       <h1>MERNStack TodoApp</h1>
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.form__item}>
@@ -89,7 +90,7 @@ const Register = () => {
         {error && <p>{error}</p>}
       </form>
       <Link to="/login">ログインはこちら</Link>
-    </>
+    </Sheet>
   );
 };
 

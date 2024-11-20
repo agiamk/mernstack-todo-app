@@ -1,6 +1,4 @@
-.container {
-  max-width: 980px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 18px;
+.main {
+  display: flex;
+  gap: 40px;
 }
