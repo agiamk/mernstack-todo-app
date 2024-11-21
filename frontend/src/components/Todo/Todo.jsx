@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styles from "./Todo.module.css";
 import DeleteButton from "../DeleteButton/DeleteButton";
-import SubmitButton from "../SubmitButton/Button";
 import TodoForm from "../TodoForm/TodoForm";
 
 // eslint-disable-next-line react/prop-types
