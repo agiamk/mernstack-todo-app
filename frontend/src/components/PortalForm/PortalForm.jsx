@@ -1,10 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import TodoForm from "../TodoForm/TodoForm";
 import styles from "./PortalForm.module.css";
 
+const rootElement = document.querySelector("#root");
+
 const PortalForm = () => {
   const [showModal, setShowModal] = useState(false);
+
+  //Escキーを押すとモーダルが閉じるようにEventListnerを追加
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setShowModal(false);
+      }
+    };
+
+    if (showModal) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [showModal]);
 
   return (
     <>
@@ -16,7 +35,7 @@ const PortalForm = () => {
               <TodoForm add onClose={() => setShowModal(false)} />
             </div>
           </div>,
-          document.body
+          rootElement
         )}
     </>
   );
