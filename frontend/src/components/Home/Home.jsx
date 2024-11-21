@@ -2,9 +2,9 @@ import { useContext } from "react";
 import styles from "./Home.module.css";
 import { AuthContext } from "../../context/AuthContext";
 import TodoList from "../TodoList/TodoList";
-import TodoForm from "../TodoForm/TodoForm";
 import Sheet from "../Sheet/Sheet";
 import CompletedTodo from "../CompletedTodo/CompletedTodo";
+import PortalForm from "../PortalForm/PortalForm";
 
 const Home = () => {
   const { state } = useContext(AuthContext);
@@ -18,7 +18,9 @@ const Home = () => {
           <br />
           あなたのタスクを登録しましょう！
         </p>
-        <TodoForm add />
+        <div>
+          <PortalForm />
+        </div>
         <div className={styles.main}>
           <TodoList />
           <CompletedTodo />

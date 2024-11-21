@@ -3,9 +3,9 @@ import { useContext, useState } from "react";
 import { apiClient } from "../../utils/apiClient";
 import styles from "./TodoForm.module.css";
 import { AuthContext } from "../../context/AuthContext";
-import SubmitButton from "../SubmitButton/Button";
+import Button from "../Button/Button";
 
-const TodoForm = ({ add, update, todo, setEdit }) => {
+const TodoForm = ({ add, update, todo, setEdit, onClose }) => {
   const { state } = useContext(AuthContext);
   const [error, setError] = useState(state.error);
   const [priority, setPriority] = useState(todo?.riority);
@@ -134,8 +134,8 @@ const TodoForm = ({ add, update, todo, setEdit }) => {
           </div>
         </div>
         <div className={styles.buttonWrapper}>
-          {add && <SubmitButton>追加</SubmitButton>}
-          {update && <SubmitButton>更新</SubmitButton>}
+          <span onClick={onClose}>{add && <Button>追加</Button>}</span>
+          <span>{update && <Button>更新</Button>}</span>
         </div>
       </form>
       <div>{error && error}</div>
