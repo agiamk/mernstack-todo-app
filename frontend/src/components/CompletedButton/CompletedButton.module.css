@@ -1,0 +1,12 @@
+.button {
+  display: inline-block;
+  padding: 8px 16px;
+  outline: none;
+  background: none;
+}
+
+.button:focus,
+.button:hover {
+  background-color: black;
+  color: white;
+}

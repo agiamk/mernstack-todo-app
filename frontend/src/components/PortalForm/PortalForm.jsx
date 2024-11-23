@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import TodoForm from "../TodoForm/TodoForm";
 import styles from "./PortalForm.module.css";
+import Button from "../Button/Button";
 
 const rootElement = document.querySelector("#root");
 
@@ -27,12 +28,14 @@ const PortalForm = () => {
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}>Todoを追加する</button>
+      <div className={styles.buttonWrapper} onClick={() => setShowModal(true)}>
+        <Button>Todoを追加する</Button>
+      </div>
       {showModal &&
         createPortal(
           <div className={styles.modal__container}>
             <div className={styles.modal__TodoForm}>
-              <TodoForm add onClose={() => setShowModal(false)} />
+              <TodoForm add setShowModal={setShowModal} />
             </div>
           </div>,
           rootElement

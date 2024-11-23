@@ -13,10 +13,21 @@ router.post("/", async (req, res) => {
   }
 });
 
-//投稿したすべてのtodoを取得
+//未完了のtodoを取得
 router.get("/:userId", async (req, res) => {
   try {
-    const todos = await Todo.find({ userId: req.params.userId });
+    const todos = await Todo.find({ userId: req.params.userId, isDone: false });
+
+    return res.status(200).json(todos);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
+//完了したtodoを取得
+router.get("/completed/:userId", async (req, res) => {
+  try {
+    const todos = await Todo.find({ userId: req.params.userId, isDone: true });
 
     return res.status(200).json(todos);
   } catch (err) {
@@ -36,7 +47,7 @@ router.delete("/:id", async (req, res) => {
 });
 
 //todoを更新
-router.put("/:id", async (req, res) => {
+router.put("/update/:id", async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.id);
 
@@ -45,7 +56,23 @@ router.put("/:id", async (req, res) => {
     });
     return res.status(200).json("編集完了！");
   } catch (err) {
-    return res.status(403).json("自分の投稿しか削除できません");
+    return res.status(403).json(err);
+  }
+});
+
+//todoを完了
+router.put("/complete/:id", async (req, res) => {
+  try {
+    const todo = await Todo.findById(req.params.id);
+
+    const updatedTodo = await todo.updateOne({
+      $set: {
+        isDone: true,
+      },
+    });
+    return res.status(200).json(updatedTodo);
+  } catch (err) {
+    return res.status(403).json(err);
   }
 });
 
