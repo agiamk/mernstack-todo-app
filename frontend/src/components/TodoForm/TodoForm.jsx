@@ -5,13 +5,12 @@ import styles from "./TodoForm.module.css";
 import { AuthContext } from "../../context/AuthContext";
 import Button from "../Button/Button";
 
-const TodoForm = ({ add, update, todo, setEdit, onClose }) => {
+const TodoForm = ({ add, update, todo, setEdit, setShowModal }) => {
   const { state } = useContext(AuthContext);
   const [error, setError] = useState(state.error);
-  const [priority, setPriority] = useState(todo?.riority);
-  const [title, setTitle] = useState(todo?.title);
-  const [content, setContent] = useState(todo?.content);
-
+  const [priority, setPriority] = useState(todo?.priority || "");
+  const [title, setTitle] = useState(todo?.title || "");
+  const [content, setContent] = useState(todo?.content || "");
   const user = state.user;
 
   const submitHandler = async (e) => {
@@ -29,10 +28,11 @@ const TodoForm = ({ add, update, todo, setEdit, onClose }) => {
         setTitle("");
         setContent("");
         setPriority("");
+        setShowModal(false);
       }
 
       if (update) {
-        await apiClient.put(`/todo/${todo._id}`, {
+        await apiClient.put(`/todo/update/${todo._id}`, {
           userId: user._id,
           title: title,
           content: content,
@@ -43,7 +43,8 @@ const TodoForm = ({ add, update, todo, setEdit, onClose }) => {
         setPriority("");
         setEdit((prev) => !prev);
       }
-      // window.location.reload();
+
+      window.location.reload();
     } catch (err) {
       setError(err.response);
       console.log(err);
@@ -52,7 +53,13 @@ const TodoForm = ({ add, update, todo, setEdit, onClose }) => {
 
   return (
     <div className={styles.container}>
-      <form onSubmit={(e) => submitHandler(e)} className={styles.form}>
+      <form
+        onSubmit={(e) => {
+          console.log("Form submitted");
+          submitHandler(e);
+        }}
+        className={styles.form}
+      >
         <div className={styles.form__item}>
           <label htmlFor="title" className={styles.form__label}>
             タイトル
@@ -134,7 +141,7 @@ const TodoForm = ({ add, update, todo, setEdit, onClose }) => {
           </div>
         </div>
         <div className={styles.buttonWrapper}>
-          <span onClick={onClose}>{add && <Button>追加</Button>}</span>
+          <span>{add && <Button>追加</Button>}</span>
           <span>{update && <Button>更新</Button>}</span>
         </div>
       </form>

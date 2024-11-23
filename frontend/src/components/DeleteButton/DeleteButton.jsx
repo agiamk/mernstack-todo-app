@@ -4,6 +4,7 @@ import { apiClient } from "../../utils/apiClient";
 const DeleteButton = ({ id }) => {
   const handleDelete = async () => {
     await apiClient.delete(`/todo/${id}`);
+    window.location.reload();
   };
 
   return (

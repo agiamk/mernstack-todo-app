@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { apiClient } from "../../utils/apiClient";
 import Todo from "../Todo/Todo";
@@ -12,10 +12,11 @@ const TodoList = () => {
   useEffect(() => {
     const fetchTodos = async () => {
       const res = await apiClient.get(`/todo/${user._id}`);
+
       setTodos(res.data);
     };
     fetchTodos();
-  }, [user._id, todos]);
+  }, [user._id]);
 
   return (
     <div className={styles.container}>
