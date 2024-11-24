@@ -21,6 +21,22 @@ app.use(
   })
 );
 
+// カスタム CORS ミドルウェア
+app.use((req, res, next) => {
+  res.set({
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  });
+
+  // Preflightリクエストの場合は早期終了
+  if (req.method === "OPTIONS") {
+    return res.status(204).end();
+  }
+
+  next();
+});
+
 app.use(express.json());
 app.use("/api/todo", todoRoutes);
 app.use("/api/auth", authRoutes);
