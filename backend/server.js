@@ -6,8 +6,6 @@ const todoRoutes = require("./routes/todo");
 const cors = require("cors");
 require("dotenv").config();
 
-const PORT = 5000;
-
 //mongoDB接続
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -31,4 +29,4 @@ app.get("/", (req, res) => {
   res.send("Hello express");
 });
 
-app.listen(PORT, () => console.log("サーバーが起動しました"));
+module.exports = app;
