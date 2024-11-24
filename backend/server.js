@@ -16,8 +16,7 @@ mongoose
 app.use(
   cors({
     origin: "*", // 許可するオリジン
-    methods: "GET,POST,PUT,DELETE,OPTIONS", // 許可するHTTPメソッド
-    allowedHeaders: ["Content-Type", "Authorization"], // 許可するヘッダー
+    credentials: true,
   })
 );
 
