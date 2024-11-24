@@ -5,6 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { apiClient } from "../../utils/apiClient";
 import styles from "./Register.module.css";
 import Sheet from "../Sheet/Sheet";
+import Button from "../Button/Button";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -86,7 +87,7 @@ const Register = () => {
             ref={passwordConfirmation}
           />
         </div>
-        <button type="submit">新規登録</button>
+        <Button>新規登録</Button>
         {error && <p>{error}</p>}
       </form>
       <Link to="/login">ログインはこちら</Link>
