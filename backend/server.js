@@ -17,10 +17,7 @@ mongoose
 // CORS設定
 app.use(
   cors({
-    origin: [
-      "https://mernstack-todo-app.vercel.app",
-      "https://mernstack-todo-app-9e69.vercel.app",
-    ], // 許可するオリジン
+    origin: ["*"], // 許可するオリジン
     methods: "GET,POST,PUT,DELETE,OPTIONS", // 許可するHTTPメソッド
     allowedHeaders: ["Content-Type", "Authorization"], // 許可するヘッダー
   })
