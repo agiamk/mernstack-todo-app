@@ -14,28 +14,17 @@ mongoose
   .then(() => console.log("DBと接続中"))
   .catch((err) => console.log(err));
 
+// CORS設定
 app.use(
   cors({
-    origin: "https://mernstack-todo-app-9e69.vercel.app",
-    methods: "GET,POST,PUT,DELETE,OPTIONS",
+    origin: [
+      "https://mernstack-todo-app.vercel.app",
+      "https://mernstack-todo-app-9e69.vercel.app",
+    ], // 許可するオリジン
+    methods: "GET,POST,PUT,DELETE,OPTIONS", // 許可するHTTPメソッド
+    allowedHeaders: ["Content-Type", "Authorization"], // 許可するヘッダー
   })
 );
-
-// カスタム CORS ミドルウェア
-app.use((req, res, next) => {
-  res.set({
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization",
-  });
-
-  // Preflightリクエストの場合は早期終了
-  if (req.method === "OPTIONS") {
-    return res.status(204).end();
-  }
-
-  next();
-});
 
 app.use(express.json());
 app.use("/api/todo", todoRoutes);
