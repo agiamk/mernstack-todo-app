@@ -8,11 +8,7 @@
   ],
   "routes": [
     {
-      "src": "/api/todo/(.*)",
-      "dest": "/backend/server.js"
-    },
-    {
-      "src": "/api/auth/(.*)",
+      "src": "/(.*)",
       "dest": "/backend/server.js"
     }
   ]
