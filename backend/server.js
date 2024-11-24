@@ -17,6 +17,7 @@ app.use(
   cors({
     origin: "*", // 許可するオリジン
     credentials: true,
+    optionsSuccessStatus: 200,
   })
 );
 
