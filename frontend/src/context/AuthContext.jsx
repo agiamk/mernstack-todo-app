@@ -1,13 +1,8 @@
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 import { AuthReducer } from "./AuthReducer";
 
 const initialState = {
-  user: {
-    _id: "6734c159dce50233ba223c23",
-    username: "taiga",
-    email: "km10150301@gmail.com",
-    password: "taiga1015",
-  },
+  user: JSON.parse(localStorage.getItem("user")) || null,
   isFetching: false,
   error: false,
 };
@@ -18,6 +13,10 @@ export const AuthContext = createContext(initialState);
 // eslint-disable-next-line react/prop-types
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, initialState);
+
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(state.user));
+  }, [state.user]);
 
   return (
     <AuthContext.Provider value={{ state, dispatch }}>

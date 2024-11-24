@@ -5,6 +5,7 @@ import TodoList from "../TodoList/TodoList";
 import Sheet from "../Sheet/Sheet";
 import CompletedTodo from "../CompletedTodo/CompletedTodo";
 import PortalForm from "../PortalForm/PortalForm";
+import LogoutButton from "../LogoutButton/LogoutButton";
 
 const Home = () => {
   const { state } = useContext(AuthContext);
@@ -13,11 +14,16 @@ const Home = () => {
   return (
     <Sheet>
       <div className={styles.container}>
-        <p>
-          <b>{user.username}</b>さん、こんにちは！
-          <br />
-          あなたのタスクを登録しましょう！
-        </p>
+        <div className={styles.headerContainer}>
+          <div>
+            <p>
+              <b>{user.username}</b>さん、こんにちは！
+              <br />
+              あなたのタスクを登録しましょう！
+            </p>
+          </div>
+          <LogoutButton />
+        </div>
         <div>
           <PortalForm />
         </div>

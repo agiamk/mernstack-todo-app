@@ -1,19 +1,18 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./Login.module.css";
 import { getAccount } from "../../utils/getAccount";
 import { AuthContext } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import Sheet from "../Sheet/Sheet";
+import Button from "../Button/Button";
 
-const Register = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { state, dispatch } = useContext(AuthContext);
-  const [error, setError] = useState(state.error);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    console.log(state.user);
     e.preventDefault();
 
     await getAccount(
@@ -57,12 +56,11 @@ const Register = () => {
             required
           />
         </div>
-        <button type="submit">ログイン</button>
-        {error && <p>{error}</p>}
+        <Button>ログイン</Button>
       </form>
       <Link to="/register">新規登録はこちら</Link>
     </Sheet>
   );
 };
 
-export default Register;
+export default Login;
