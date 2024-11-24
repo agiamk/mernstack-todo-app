@@ -13,20 +13,13 @@ mongoose
   .catch((err) => console.log(err));
 
 // CORS設定
-app.use(cors()); // CORSミドルウェア
-
-// OPTIONSリクエストの処理
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*"); // 必要に応じて特定のオリジンに変更
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-
-  if (req.method === "OPTIONS") {
-    return res.status(204).end(); // Preflightリクエストに対する応答
-  }
-
-  next();
-});
+app.use(
+  cors({
+    origin: "*", // 許可するオリジン
+    methods: "GET,POST,PUT,DELETE,OPTIONS", // 許可するHTTPメソッド
+    allowedHeaders: ["Content-Type", "Authorization"], // 許可するヘッダー
+  })
+);
 
 app.use(express.json());
 app.use("/api/todo", todoRoutes);
