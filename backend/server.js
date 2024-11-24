@@ -17,6 +17,7 @@ mongoose
 app.use(
   cors({
     origin: "https://mernstack-todo-app-9e69.vercel.app",
+    methods: "GET,POST,PUT,DELETE,OPTIONS",
   })
 );
 
